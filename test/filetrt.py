@@ -4,7 +4,7 @@ import matplotlib.ticker as ticker
 wave = []
 intance = []
 freq = []
-def take_data(types, filename):
+def take_data(types, filename, axestype = 0):
     i = 0
     line = 0
     with open(filename,'r') as f:
@@ -19,22 +19,28 @@ def take_data(types, filename):
     for i in range (0,len(wave)):
         freq.append(1/wave[i])
 
-    if types == 1:
-        fig = plt.figure()
-        plt.plot(wave, intance)
+    fig, ax = plt.subplots()
+    if types == 0:
+        ax.plot(wave, intance,color = 'r')
+        ax.grid()
 
         plt.title('СПЕКТР ИЗЛУЧЕНИЯ')
         plt.ylabel('Интенсивность')
         plt.xlabel('Длина волны')
-
-        
-    if types == 2:
-        fig = plt.figure()
-        plt.plot(freq, intance)
+        fig.set_facecolor('mintcream')
+        ax.set_facecolor('whitesmoke')
+                
+    if types == 1:
+        ax.plot(freq, intance, color = 'r')
+        ax.grid()
 
         plt.title('СПЕКТР ИЗЛУЧЕНИЯ')
         plt.ylabel('Интенсивность')
         plt.xlabel('Частота')
+        fig.set_facecolor('mintcream')
+        ax.set_facecolor('whitesmoke')
+    if axestype == 1:
+        ax.set_yscale ('log')
     wave.clear()
     intance.clear()
     freq.clear()
