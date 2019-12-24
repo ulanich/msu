@@ -27,8 +27,7 @@ def take_data(types, filename, axestype = 0):
         plt.title('СПЕКТР ИЗЛУЧЕНИЯ')
         plt.ylabel('Интенсивность')
         plt.xlabel('Длина волны')
-        fig.set_facecolor('mintcream')
-        ax.set_facecolor('whitesmoke')
+        ax.set_facecolor('#f4f0fc')
                 
     if types == 1:
         ax.plot(freq, intance, color = 'r')
@@ -37,8 +36,7 @@ def take_data(types, filename, axestype = 0):
         plt.title('СПЕКТР ИЗЛУЧЕНИЯ')
         plt.ylabel('Интенсивность')
         plt.xlabel('Частота')
-        fig.set_facecolor('mintcream')
-        ax.set_facecolor('whitesmoke')
+        ax.set_facecolor('#f4f0fc')
     if axestype == 1:
         ax.set_yscale ('log')
     wave.clear()

@@ -6,9 +6,12 @@ from filetrt import *
 def choose_file():
     Tk().withdraw() 
     global filename
-    filename = askopenfilename()# разделить для нескольких графиков
-    btn2.config(state=NORMAL)
-    
+    filename = askopenfilename()
+    f = filename.split("/")
+    btn2.config(state=NORMAL, bg="#a1e5a3")
+    zad4 = Label(f_file, text=f[-1:])  
+    zad4.pack(side=RIGHT)
+
 def clicked(): 
     types = arg.get()
     axestype = selected.get()
@@ -16,30 +19,37 @@ def clicked():
 
 window = Tk()  
 window.title("Спектр")  
-window.geometry('350x190')  
+window.geometry('300x200') 
 
-zad1 = Label(window, text="Выберите файл",  font=("Arial Bold", 12))  
-zad1.grid(column=1, row=0) 
+f_file = LabelFrame(text='Выбор файла',width=204, height=50) # root можно не указывать
+f_parameters1 = LabelFrame(text='Параметры построения спектра')
+f_parameters = Frame(f_parameters1)
+f_go = Frame()
+f_file.pack()
+f_file.pack_propagate(False)
+f_parameters1.pack()
+f_parameters.pack()
+f_go.pack()
 
-btn1 = Button(window, text="    Файл    ", command=choose_file)  
-btn1.grid(column=1, row=1)   
+btn1 = Button(f_file, width=7, height=1, text="Открыть", command=choose_file)  
+btn1.pack(side=LEFT)
 
-zad = Label(window, text="Зависимость от:", font=("Arial Bold", 12))  
-zad.grid(column=1, row=2) 
+zad = Label(f_parameters, text="Зависимость от:", font=("Arial Bold", 10))  
+zad.pack(side=TOP)
 arg = IntVar()
-rad1 = Radiobutton(window, text='длины волны', value=0, variable=arg)  
-rad2 = Radiobutton(window, text='частоты', value=1, variable=arg) 
-rad1.grid(column=0, row=3)  
-rad2.grid(column=2, row=3)
+rad1 = Radiobutton(f_parameters, text='длины волны', value=0, variable=arg)  
+rad2 = Radiobutton(f_parameters, text='частоты', value=1, variable=arg) 
+rad1.pack(side=LEFT) 
+rad2.pack(side=RIGHT)
 
-zad2 = Label(window, text="Ось Y:", font=("Arial Bold", 12))  
-zad2.grid(column=1, row=4) 
+zad2 = Label(f_parameters1, text="Ось Y:", font=("Arial Bold", 10))  
+zad2.pack(side=TOP)
 selected = IntVar()
-rad3 = Radiobutton(window, text='линейная', value=0, variable=selected)  
-rad4 = Radiobutton(window, text='логарифмическая', value=1, variable=selected) 
-rad3.grid(column=0, row=5)  
-rad4.grid(column=2, row=5) 
+rad3 = Radiobutton(f_parameters1, text='линейная', value=0, variable=selected)  
+rad4 = Radiobutton(f_parameters1, text='логарифмическая', value=1, variable=selected) 
+rad3.pack(side=LEFT)
+rad4.pack(side=RIGHT)
 
-btn2 = Button(window, text="Построить график", command=clicked, state=DISABLED)  
-btn2.grid(column=1, row=6)  
+btn2 = Button(f_go, text="Построить график", bg="#fc5d5d", width=27, height=1, command=clicked, state=DISABLED)  
+btn2.pack(side=LEFT)
 window.mainloop()
