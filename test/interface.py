@@ -9,8 +9,7 @@ def choose_file():
     filename = askopenfilename()
     f = filename.split("/")
     btn2.config(state=NORMAL, bg="#a1e5a3")
-    zad4 = Label(f_file, text=f[-1:])  
-    zad4.pack(side=RIGHT)
+    zad4.config(text=f[-1:])  
 
 def clicked(): 
     types = arg.get()
@@ -33,6 +32,8 @@ f_go.pack()
 
 btn1 = Button(f_file, width=7, height=1, text="Открыть", command=choose_file)  
 btn1.pack(side=LEFT)
+zad4 = Label(f_file)  
+zad4.pack(side=RIGHT)
 
 zad = Label(f_parameters, text="Зависимость от:", font=("Arial Bold", 10))  
 zad.pack(side=TOP)
