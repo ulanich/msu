@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter.ttk import Radiobutton 
 from tkinter.filedialog import askopenfilename 
 from filetrt import *
+import sys
 
 def choose_file():
     Tk().withdraw() 
@@ -15,6 +16,10 @@ def clicked():
     types = arg.get()
     axestype = selected.get()
     take_data(types, filename, axestype)
+
+def on_close():
+    window.destroy()
+    sys.exit()
 
 window = Tk()  
 window.title("Спектр")  
@@ -53,4 +58,7 @@ rad4.pack(side=RIGHT)
 
 btn2 = Button(f_go, text="Построить график", bg="#fc5d5d", width=27, height=1, command=clicked, state=DISABLED)  
 btn2.pack(side=LEFT)
+window.protocol('WM_DELETE_WINDOW', on_close)
 window.mainloop()
+
+
