@@ -9,13 +9,18 @@ def choose_file():
     global filename
     filename = askopenfilename()
     f = filename.split("/")
-    btn2.config(state=NORMAL, bg="#a1e5a3")
+    graph_b.config(state=NORMAL, bg="#a1e5a3")
+    graph_temp_b.config(state=NORMAL, bg="#a1e5a3")
+
     zad4.config(text=f[-1:])  
 
 def clicked(): 
     types = arg.get()
     axestype = selected.get()
     take_data(types, filename, axestype)
+    
+def clicked_temp():
+    take_data(3, filename, 1, 1, 600, 30000)
 
 def on_close():
     window.destroy()
@@ -23,20 +28,22 @@ def on_close():
 
 window = Tk()  
 window.title("Спектр")  
-window.geometry('300x200') 
+window.geometry('300x400') 
 
-f_file = LabelFrame(text='Выбор файла',width=204, height=50) # root можно не указывать
+f_file = LabelFrame(text='Выбор файла',width=204, height=50) 
 f_parameters1 = LabelFrame(text='Параметры построения спектра')
 f_parameters = Frame(f_parameters1)
 f_go = Frame()
+f_temperature = LabelFrame(text='Температура электронов',width=204, height=50)
 f_file.pack()
 f_file.pack_propagate(False)
 f_parameters1.pack()
 f_parameters.pack()
 f_go.pack()
+f_temperature.pack()
 
-btn1 = Button(f_file, width=7, height=1, text="Открыть", command=choose_file)  
-btn1.pack(side=LEFT)
+open_b = Button(f_file, width=7, height=1, text="Открыть", command=choose_file)  
+open_b.pack(side=LEFT)
 zad4 = Label(f_file)  
 zad4.pack(side=RIGHT)
 
@@ -56,8 +63,12 @@ rad4 = Radiobutton(f_parameters1, text='логарифмическая', value=1
 rad3.pack(side=LEFT)
 rad4.pack(side=RIGHT)
 
-btn2 = Button(f_go, text="Построить график", bg="#fc5d5d", width=27, height=1, command=clicked, state=DISABLED)  
-btn2.pack(side=LEFT)
+graph_b = Button(f_go, text="Построить график", bg="#fc5d5d", width=27, height=1, command=clicked, state=DISABLED)  
+graph_b.pack(side=LEFT)
+
+graph_temp_b = Button(f_temperature, text="Построить график", bg="#fc5d5d", width=27, height=1, command=clicked_temp, state=DISABLED)  
+graph_temp_b.pack()
+
 window.protocol('WM_DELETE_WINDOW', on_close)
 window.mainloop()
 
