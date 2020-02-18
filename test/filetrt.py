@@ -51,8 +51,9 @@ def take_data(types, filename, axestype = 0, el_temp = 0, wavelenght = 0, temp =
         for i in range(0, len(wave)):
             teoretical_spectr.append(wavelenght**2/(wave[i]**2)*math.exp(-(const['plank']*const['light'])/(const['boltzmann']*temp)*(1/(wave[i]*10**(-9))-1/(wavelenght*10**(-9)))))
         
+        att_intence = intance[726]
         for j in range (0, len(intance)):
-            intance[j] = intance[j]/intance[10] #какая то залупа
+            intance[j] = intance[j]/att_intence 
         
         ax1 = plt.subplot()
         ax1.plot(wave, teoretical_spectr, color = 'b')

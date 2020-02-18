@@ -1,0 +1,40 @@
+***  Installation Started 10/29/15 13:02  ***
+Title: AvaSpec - USB1 Installation
+Source: D:\Avantes AvaSoft\AvaSoft 7.0 USB1\setup.EXE
+Made Dir: C:\AvaSoft7USB1
+File Copy: C:\AvaSoft7USB1\UNWISE.EXE
+You do not have access to make the required system configuration modifications. Please rerun this installation from an administrators account.
+***  Installation Started 10/29/15 13:04  ***
+Title: AvaSpec - USB1 Installation
+Source: D:\Avantes AvaSoft\AvaSoft 7.0 USB1\setup.EXE
+File Overwrite: C:\AvaSoft7USB1\UNWISE.EXE
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\AvaSpec - USB1
+RegDB Val: AvaSpec - USB1
+RegDB Name: DisplayName
+RegDB Root: 2
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\AvaSpec - USB1
+RegDB Val: C:\AVASOF~1\UNWISE.EXE C:\AVASOF~1\INSTALL.LOG
+RegDB Name: UninstallString
+RegDB Root: 2
+File Copy: C:\AvaSoft7USB1\avaspec70USB1.exe
+File Copy: C:\AvaSoft7USB1\AvaSpecHelp.chm
+File Copy: C:\AvaSoft7USB1\irrad.dll
+File Copy: C:\AvaSoft7USB1\avsled.dll
+File Copy: C:\AvaSoft7USB1\vbscrip5.chm
+File Copy: C:\AvaSoft7USB1\vbscrip5.chi
+File Copy: C:\AvaSoft7USB1\example.lmp
+File Copy: C:\AvaSoft7USB1\helplogo.gif
+File Copy: C:\AvaSoft7USB1\example.pct
+File Copy: C:\AvaSoft7USB1\continuous.xls
+File Copy: C:\AvaSoft7USB1\avs.dll
+File Copy: C:\AvaSoft7USB1\borlndmm.dll
+File Copy: C:\AvaSoft7USB1\calibrate.dll
+File Copy: C:\AvaSoft7USB1\colcalc.dll
+File Copy: C:\AvaSoft7USB1\Ntlcc.dll
+File Copy: C:\Windows\inf\avsusb.inf
+File Copy: C:\Windows\system32\drivers\AVSUsb.sys
+Made Dir: C:\Users\Admin\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\AVANTES Software
+Shell Link: C:\Users\Admin\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\AVANTES Software\AvaSoft 7.0 for AvaSpec-USB1.lnk
+Shell Link: C:\Users\Admin\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\AVANTES Software\AvaSoft 7.0 Help for AvaSpec-USB1.lnk
+Shell Link: C:\Users\Admin\Desktop\AvaSoft 7.0 for USB1.lnk
+User Rights: Admin

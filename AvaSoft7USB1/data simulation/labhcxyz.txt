@@ -1,0 +1,2 @@
+Date            Time            Comments                                L         a         b         h         c         X         Y         Z         ReferenceColorProductID                 LRef      aRef      bRef      dL        da        db        dE        Channel   Illumin.  Observer
+
