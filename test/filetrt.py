@@ -51,7 +51,13 @@ def take_data(types, filename, axestype = 0, el_temp = 0, wavelenght = 0, temp =
         for i in range(0, len(wave)):
             teoretical_spectr.append(wavelenght**2/(wave[i]**2)*math.exp(-(const['plank']*const['light'])/(const['boltzmann']*temp)*(1/(wave[i]*10**(-9))-1/(wavelenght*10**(-9)))))
         
-        att_intence = intance[726]
+        i = 0
+        
+        while abs(wave[i]-wavelenght) > 0.6:
+            i+=1
+        
+        att_intence = intance[i]
+
         for j in range (0, len(intance)):
             intance[j] = intance[j]/att_intence 
         
@@ -62,7 +68,7 @@ def take_data(types, filename, axestype = 0, el_temp = 0, wavelenght = 0, temp =
         ax.grid()
 
         plt.title('ОТНЕСЕННЫЙ СПЕКТР ИЗЛУЧЕНИЯ')
-        plt.ylabel('I / I(600нм)')
+        plt.ylabel('I / I(%dнм)' %wavelenght)
         plt.xlabel('Длина волны')
         ax.set_facecolor('#f4f0fc')
 
