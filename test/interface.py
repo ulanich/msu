@@ -1,13 +1,13 @@
 from tkinter import *  
 from tkinter.ttk import Radiobutton 
-from tkinter.filedialog import askopenfilename 
+from tkinter.filedialog import askopenfilenames 
 from filetrt import *
 import sys
 
 def choose_file():
     Tk().withdraw() 
     global filename
-    filename = askopenfilename()
+    filename = askopenfilenames()
     f = filename.split("/")
     graph_b.config(state=NORMAL, bg="#a1e5a3")
     graph_temp_b.config(state=NORMAL, bg="#a1e5a3")
