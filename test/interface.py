@@ -1,6 +1,7 @@
 from tkinter import *  
 from tkinter.ttk import Radiobutton 
 from tkinter.filedialog import askopenfilenames 
+from tkinter import scrolledtext 
 from filetrt import *
 import sys
 
@@ -8,11 +9,15 @@ def choose_file():
     Tk().withdraw() 
     global filename
     filename = askopenfilenames()
-    f = filename.split("/")
+    f = []
+    text = ''
+    for i in range (0,len(filename)):
+        f.append(filename[i].split("/")) 
     graph_b.config(state=NORMAL, bg="#a1e5a3")
     graph_temp_b.config(state=NORMAL, bg="#a1e5a3")
-
-    zad4.config(text=f[-1:])  
+    for i in range(0,len(f)):
+        text += f[i][-1:][0]+'\n'
+    txt.insert(INSERT, text)  
 
 def clicked(): 
     types = arg.get()
@@ -32,7 +37,7 @@ window = Tk()
 window.title("Спектр")  
 window.geometry('300x350') 
 
-f_file = LabelFrame(text='Выбор файла', width=204, height=50) 
+f_file = LabelFrame(text='Выбор файла', width=204, height=55) 
 f_parameters1 = LabelFrame(text='Параметры построения спектра')
 f_parameters = Frame(f_parameters1)
 f_go = Frame()
@@ -52,8 +57,8 @@ f_go_temp.pack()
 
 open_b = Button(f_file, width=7, height=1, text="Открыть", command=choose_file)  
 open_b.pack(side=LEFT)
-zad4 = Label(f_file)  
-zad4.pack(side=RIGHT)
+txt = scrolledtext.ScrolledText(f_file, width=12)
+txt.pack(side= RIGHT)
 
 zad = Label(f_parameters, text="Зависимость от:", font=("Arial Bold", 10))  
 zad.pack(side=TOP)
