@@ -13,10 +13,10 @@ def choose_file():
     text = ''
     for i in range (0,len(filename)):
         f.append(filename[i].split("/")) 
+        text += f[i][-1:][0]+'\n'
     graph_b.config(state=NORMAL, bg="#a1e5a3")
     graph_temp_b.config(state=NORMAL, bg="#a1e5a3")
-    for i in range(0,len(f)):
-        text += f[i][-1:][0]+'\n'
+       
     txt.insert(INSERT, text)  
 
 def clicked(): 
