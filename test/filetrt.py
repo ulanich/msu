@@ -28,6 +28,7 @@ def take_data(types, filename, axestype = 0, el_temp = 0, wavelenght = 0, temp =
     ax = plt.subplot()
     
     if types == 0:
+        ax = plt.subplot()
         ax.plot(wave, intance, color = 'r')
         ax.grid()
 
@@ -37,6 +38,7 @@ def take_data(types, filename, axestype = 0, el_temp = 0, wavelenght = 0, temp =
         ax.set_facecolor('#f4f0fc')
                 
     if types == 1:
+        ax = plt.subplot()
         ax.plot(freq, intance, color = 'r')
         ax.grid()
 
