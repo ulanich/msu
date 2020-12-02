@@ -69,7 +69,7 @@ def GOD():
             u[i+1,j] = u[i,j]-dt/dx*(uS[j]-uS[j-1])
             S[i+1,j] = S[i,j]-dt/dx*(u2p[j]-uS[j-1])
 
-
+'''
 t = [0,1,2,3,4,5]
 x = [0,1,2,3,4,5,7,8,10]
 
@@ -89,3 +89,4 @@ axes = Axes3D(fig)
 axes.plot_surface(tgrid, xgrid, z)
 
 plt.show()
+'''
