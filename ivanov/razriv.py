@@ -2,10 +2,10 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 
-pmax = 19.0
-pmin = 1.0
-Smax = 23.0
-Smin = 1.0
+pmax = 80.0
+pmin = 20.0 #мм рт. ст.
+Smax = 0.015
+Smin = 0.005
 p = lambda S: (pmax-pmin)*(S-Smin)/(Smax-Smin)
 k = (pmax-pmin)/(Smax-Smin)
 
@@ -14,8 +14,8 @@ tmax = 1.0
 xmin = 0
 xmax = 0.4
 
-Nt = 500
-Nx = 1000
+Nt = 10
+Nx = 100
 
 dx = (xmax - xmin)/ Nx
 
@@ -30,7 +30,7 @@ SL = 0
 
 for i in range (0,Nt):
     u[i, 0] = 0.1
-    S[i, 0] = 0
+    u[i, 1] = 0.1
 
 #начальные условия
 for i in range (0,Nx+2):
@@ -61,14 +61,37 @@ def HLL(j):
             u2p[i] = (Sr*(u[j,i]**2/2+p(S[j,i]))-Sl*(u[j,i+1]**2/2+p(S[j,i+1]))+Sl*Sr*(S[j,i+1]-S[j,i]))/(Sr-Sl)
 
 def GOD():
-    dt = (tmax-tmin)/Nt
+    
     for i in range(0,Nt-1):
         HLL(i)
 
+        dt = dx/max(SR,SL)+0.1*dx/max(SR,SL)
         for j in range(1,Nx+1):
             u[i+1,j] = u[i,j]-dt/dx*(uS[j]-uS[j-1])
-            S[i+1,j] = S[i,j]-dt/dx*(u2p[j]-uS[j-1])
+            u[i+1,0] = 0.1
+            S[i+1,j] = S[i,j]-dt/dx*(u2p[j]-u2p[j-1])
+            S[i+1,0] = 0.02
+        u[i+1,Nx+1] = u[i+1,Nx]
+        S[i+1,Nx+1] = S[i+1,Nx]
+        print ('u')
+        for k in range(0,Nx+2):
+            print(u[i+1,k])
+        print('S')
+        for k in range(0,Nx+2):
+            print(S[i+1,k])
+        print('---')
 
+print ('u')
+for k in range(0,Nx+2):
+    print(u[0,k])
+print('S')
+for k in range(0,Nx+2):
+    print(S[0,k])
+print('---')
+GOD()
+
+print(u)
+print(S)
 '''
 t = [0,1,2,3,4,5]
 x = [0,1,2,3,4,5,7,8,10]
