@@ -2,20 +2,31 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 
-pmax = 80.0
-pmin = 20.0 #мм рт. ст.
-Smax = 0.015
-Smin = 0.005
+timeres = 3.0
+
+pmax = 8
+pmin = 2 #мм рт. ст.
+Smax = 150
+Smin = 50
+
 p = lambda S: (pmax-pmin)*(S-Smin)/(Smax-Smin)
 k = (pmax-pmin)/(Smax-Smin)
 
-tmin = 0
-tmax = 1.0
+Time = 0
 xmin = 0
 xmax = 0.4
+tmin = 0
+Nx = 50
 
-Nt = 10
-Nx = 100
+if timeres == 1.0: 
+    Nt = 126
+    tmax = 1.0
+elif timeres == 2.0:
+    Nt = 250
+    tmax = 2.0
+elif timeres == 3.0:
+    Nt = 378
+    tmax = 3.0
 
 dx = (xmax - xmin)/ Nx
 
@@ -44,8 +55,11 @@ for i in range (0,Nx+2):
 def HLL(j):
     global SR, SL
     for i in range(0,len(uS)):
+        if (S[j,i+1] <= 0) | (S[j,i] <= 0):
+            print ('error zero')
+
         Sr = max(u[j,i+1]+(k*S[j,i+1])**(1/2), u[j,i]+(k*S[j,i])**(1/2))
-        Sl = max(u[j,i+1]-(k*S[j,i+1])**(1/2), u[j,i]-(k*S[j,i])**(1/2))
+        Sl = min(u[j,i+1]-(k*S[j,i+1])**(1/2), u[j,i]-(k*S[j,i])**(1/2))
 
         if (abs(Sr)>abs(SR)): SR = abs(Sr)
         if (abs(Sl)>abs(SL)): SL = abs(Sl)
@@ -61,55 +75,83 @@ def HLL(j):
             u2p[i] = (Sr*(u[j,i]**2/2+p(S[j,i]))-Sl*(u[j,i+1]**2/2+p(S[j,i+1]))+Sl*Sr*(S[j,i+1]-S[j,i]))/(Sr-Sl)
 
 def GOD():
-    
+    global Time
     for i in range(0,Nt-1):
         HLL(i)
 
         dt = dx/max(SR,SL)+0.1*dx/max(SR,SL)
+        Time += dt
+        if Time >= tmax:
+            print(i)
+            break
         for j in range(1,Nx+1):
             u[i+1,j] = u[i,j]-dt/dx*(uS[j]-uS[j-1])
-            u[i+1,0] = 0.1
             S[i+1,j] = S[i,j]-dt/dx*(u2p[j]-u2p[j-1])
-            S[i+1,0] = 0.02
+        u[i+1,0] = 0.1
+        S[i+1,0] = S[i+1,1]
         u[i+1,Nx+1] = u[i+1,Nx]
         S[i+1,Nx+1] = S[i+1,Nx]
-        print ('u')
+        '''
+        print('u')
         for k in range(0,Nx+2):
             print(u[i+1,k])
         print('S')
         for k in range(0,Nx+2):
-            print(S[i+1,k])
-        print('---')
-
-print ('u')
+            print(S[i+1,k])  
+        print('---')     
+        '''         
+print('u')
 for k in range(0,Nx+2):
     print(u[0,k])
 print('S')
+
 for k in range(0,Nx+2):
-    print(S[0,k])
-print('---')
+    print(S[0,k])  
+print('---')  
 GOD()
 
-print(u)
-print(S)
-'''
-t = [0,1,2,3,4,5]
-x = [0,1,2,3,4,5,7,8,10]
+#u[1,16] = u[1,15]
 
-z = np.array([0.0]*(5*(10))).reshape(10, 5)
+t = np.linspace(0,tmax,Nt)
+x = np.linspace(0,xmax,Nx+2)
 
-t = np.linspace(0,1,5)
-x = np.linspace(0,1, 10)
-
-tgrid, xgrid = np.meshgrid(t,x)
-print (tgrid)
-print(xgrid)
-print(z)
-
+xgrid, tgrid = np.meshgrid(x,t)
 fig = plt.figure()
 axes = Axes3D(fig)
 
-axes.plot_surface(tgrid, xgrid, z)
+axes.plot_surface(tgrid, xgrid, u)
+axes.set_xlabel('time')
+axes.set_ylabel('X coordinate')
+axes.set_zlabel('U')
+
+fig1 = plt.figure()
+axes1 = Axes3D(fig1)
+
+axes1.plot_surface(tgrid, xgrid, S)
+axes1.set_xlabel('time')
+axes1.set_ylabel('X coordinate')
+axes1.set_zlabel('S')
+
+fig2 = plt.figure()
+
+plt.plot(x,u[25], label = '%1.2f с' %t[25])
+plt.plot(x, u[Nt//2], label = '%1.2f с' %t[Nt//2])
+plt.plot(x, u[Nt-1], label = '%1.2f с' %t[Nt-1])
+plt.title('Зависимость U от координаты')
+plt.xlabel('X coorditane')
+plt.ylabel('U')
+plt.legend()
+plt.grid()
+
+fig3 = plt.figure()
+
+plt.plot(x,S[25], label = '%1.2f с' %t[25])
+plt.plot(x, S[Nt//2], label = '%1.2f с' %t[Nt//2])
+plt.plot(x, S[Nt-1], label = '%1.2f с' %t[Nt-1])
+plt.title('Зависимость S от координаты')
+plt.xlabel('X coorditane')
+plt.ylabel('S')
+plt.legend()
+plt.grid()
 
 plt.show()
-'''
