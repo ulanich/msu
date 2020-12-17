@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d import Axes3D
 
-timeres = 3.0
+timeres = 1.0
 
 pmax = 8
 pmin = 2 #мм рт. ст.
@@ -55,6 +55,9 @@ for i in range (0,Nx+2):
 def HLL(j):
     global SR, SL
     for i in range(0,len(uS)):
+
+        if j == 4:
+            print('4')
         if (S[j,i+1] <= 0) | (S[j,i] <= 0):
             print ('error zero')
 
@@ -91,23 +94,7 @@ def GOD():
         S[i+1,0] = S[i+1,1]
         u[i+1,Nx+1] = u[i+1,Nx]
         S[i+1,Nx+1] = S[i+1,Nx]
-        '''
-        print('u')
-        for k in range(0,Nx+2):
-            print(u[i+1,k])
-        print('S')
-        for k in range(0,Nx+2):
-            print(S[i+1,k])  
-        print('---')     
-        '''         
-print('u')
-for k in range(0,Nx+2):
-    print(u[0,k])
-print('S')
 
-for k in range(0,Nx+2):
-    print(S[0,k])  
-print('---')  
 GOD()
 
 #u[1,16] = u[1,15]
