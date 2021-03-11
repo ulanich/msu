@@ -31,7 +31,11 @@ def take_data(types, filename, axestype = 0, el_temp = 0, wavelenght = 0, temp =
         
         if types == 0:
             ax = plt.subplot()
+            _max = max(intance[820:829])
+            max_ = []
+            for i in range (len(wave)): max_.append(_max/2)
             ax.plot(wave, intance, color = 'r')
+            ax.plot(wave, max_, color = 'g')
             ax.grid()
 
             plt.title('СПЕКТР ИЗЛУЧЕНИЯ, файл: %s' %filename[k][-11:])
