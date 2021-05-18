@@ -10,7 +10,10 @@ import numpy as np
 ne = []
 pressure_del = []
 mach = []
+ne1 = []
+pressure_del1 = []
 y_err = []
+y_err1 = []
 E_n = []
 E_N = lambda p: 8.33*760*1.38*300*10**-23*10**21/p/760*300
 a = 8.317016079
@@ -130,6 +133,24 @@ def _file_light(filename):
     #plt.xlabel("число Маха")
     #plt.ylabel("E - энергия электронов [еВ]")
 
+def two_graphs(filename):
+    line = 0
+    with open(filename,'r') as f:
+        for line in f:
+            x = line[:-1]
+            x,y,z,x1,y1,z1 = x.replace(',','.').split('\t')
+            ne.append(float(x))
+            pressure_del.append(float(y)/300*0.02898/8.31/294*10**5)
+            y_err.append(float(z))
+            ne1.append(float(x1))
+            pressure_del1.append(float(y1)/300*0.02898/8.31/294*10**5)
+            y_err1.append(float(z1))
+    plt.errorbar(pressure_del,ne, yerr = y_err, fmt='o', color = 'r')#, uplims= TRUE, lolims=TRUE)
+    plt.errorbar(pressure_del1,ne1, yerr = y_err1, fmt='o', color = 'b')#, uplims= TRUE, lolims=TRUE)
+
+    #plt.scatter(pressure_del, ne, color = "r")
+    plt.title("Концентрация электронов")
+
 def choose_file():
     Tk().withdraw()
     global filename
@@ -155,7 +176,9 @@ def _graph(filename, _type = 0):
         _file_still_en(filename)
     elif _type == 6:
         _file_light(filename)
-
+    elif _type == 7:
+        two_graphs(filename)
+        
     plt.grid()
     plt.show() 
 
@@ -164,6 +187,10 @@ def click():
     pressure_del.clear()
     mach.clear()
     y_err.clear()
+    ne1.clear()
+    pressure_del1.clear()
+    y_err1.clear()
+
     _graph(filename, arg.get())
 
 def on_close():
@@ -171,7 +198,7 @@ def on_close():
     sys.exit()
 window = Tk()  
 window.title("Графики")  
-window.geometry('300x280') 
+window.geometry('300x300') 
 
 f_file = LabelFrame(text='Выбор файла', width=204, height=55) 
 f_file.pack()
@@ -193,6 +220,7 @@ rad4 = Radiobutton(f_parameters, text='Энергия электронов от 
 rad5 = Radiobutton(f_parameters, text='Осциллограмма тока', value=0, variable=arg) 
 rad6 = Radiobutton(f_parameters, text='E/N неподвижный воздух', value=5, variable=arg) 
 rad7 = Radiobutton(f_parameters, text='Затухание', value=6, variable=arg) 
+rad8 = Radiobutton(f_parameters, text='2 графика', value=7, variable=arg) 
 
 rad1.pack() 
 rad2.pack()
@@ -201,6 +229,7 @@ rad4.pack()
 rad5.pack()
 rad6.pack()
 rad7.pack()
+rad8.pack()
 
 open_b = Button(f_file, width=7, height=1, text="Открыть", command=choose_file)  
 open_b.pack(side=LEFT)
