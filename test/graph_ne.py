@@ -49,9 +49,9 @@ def _file_still_en(filename):
         for i in range(len(ro)):
             E_n.append(E_N(ro[i]))
             ro[i]*=(1/300*0.02898/8.31/294*10**5)
-    plt.errorbar(pressure_del,ne, yerr = y_err, fmt='o', color = 'r', label = "Эксперимент")#, uplims= TRUE, lolims=TRUE)
-    plt.plot(ro, E_n, color = "b", label = "Рассчитанные средние значения")
-    plt.legend()
+    plt.errorbar(pressure_del,ne, yerr = y_err, fmt='o', color = 'm', label = "Эксперимент")#, uplims= TRUE, lolims=TRUE)
+    #plt.plot(ro, E_n, color = "b", label = "Рассчитанные средние значения")
+    #plt.legend()
     #plt.title("Приведенное электрическое поле")
 
 def _file_osc(filename):
@@ -94,7 +94,7 @@ def _file_energy_flow(filename):
             mach.append(float(y)/300*0.02898/8.31/294*10**5)    
             #y_err.append(float(z))               
     #plt.errorbar(mach,ne, yerr = y_err, fmt='o', color = 'r')
-    plt.scatter(mach, ne, color = "r")
+    plt.scatter(mach, ne, color = "g")
     #plt.title("Энергия электронов")
     #plt.xlabel("число Маха")
     #plt.ylabel("E - энергия электронов [еВ]")
@@ -108,7 +108,7 @@ def _file_energy_still(filename):
             ne.append(float(x))
             pressure_del.append(float(y)/300*0.02898/8.31/294*10**5)
             y_err.append(float(z))               
-    plt.errorbar(pressure_del,ne, yerr = y_err, fmt='o', color = 'r')
+    plt.errorbar(pressure_del,ne, yerr = y_err, fmt='o', color = 'g')
     #plt.scatter(pressure_del, ne, color = "r", marker="s")
     #plt.title("Энергия электронов")
     #plt.xlabel("Давление [Торр]")
@@ -145,8 +145,9 @@ def two_graphs(filename):
             ne1.append(float(x1))
             pressure_del1.append(float(y1)/300*0.02898/8.31/294*10**5)
             y_err1.append(float(z1))
-    plt.errorbar(pressure_del,ne, yerr = y_err, fmt='o', color = 'r')#, uplims= TRUE, lolims=TRUE)
     plt.errorbar(pressure_del1,ne1, yerr = y_err1, fmt='o', color = 'b')#, uplims= TRUE, lolims=TRUE)
+    plt.errorbar(pressure_del,ne, yerr = y_err, fmt='o', color = 'r')#, uplims= TRUE, lolims=TRUE)
+    
 
     #plt.scatter(pressure_del, ne, color = "r")
     plt.title("Концентрация электронов")
